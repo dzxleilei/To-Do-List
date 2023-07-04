@@ -1,0 +1,102 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  /* Set color*/
+  --brown: #423838;
+  --background: #e0e0c5;
+
+  /* Set size*/
+  --text_1: 12px;
+  --text_2: 16px;
+  --text_3: 20px;
+  --text_4: 24px;
+  --text_5: 28px;
+  --text_6: 32px;
+  --text_7: 36px;
+  --text_8: 40px;
+  --text_9: 44px;
+  --text_10: 48px;
+}
+
+@font-face {
+  font-family: satoshi-regular;
+  src: url(../fonts/satoshi/Satoshi-Regular.otf);
+}
+
+@font-face {
+  font-family: satoshi-medium;
+  src: url(../fonts/satoshi/Satoshi-Medium.otf);
+}
+
+@font-face {
+  font-family: satoshi-bold;
+  src: url(../fonts/satoshi/Satoshi-Bold.otf);
+}
+
+@font-face {
+  font-family: clash-display-medium;
+  src: url(../fonts/clash-display/ClashDisplay-Medium.otf);
+}
+
+body {
+  background-color: var(--background);
+  margin: 20px;
+}
+
+/* Usercard */
+.container_usercard {
+  border: 2px solid var(--brown);
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+}
+
+.usercard img {
+  height: 50px;
+  border-radius: 10%;
+}
+
+.usercard {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.usercard_info {
+  color: var(--brown);
+}
+
+.usercard_name {
+  font-family: clash-display-medium;
+  font-size: var(--text_4);
+}
+
+.usercard_mail {
+  font-family: satoshi-regular;
+  font-size: var(--text_2);
+}
+
+/* Pet */
+.container_pet {
+  border: 2px solid var(--brown);
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.pet img {
+  width: 300px;
+  margin: 100px;
+}
+
+.pet_name {
+  font-family: clash-display-medium;
+  font-size: var(--text_4);
+}
+
+.pet_progress {
+  display: flex;
+  flex-direction: row;
+}
