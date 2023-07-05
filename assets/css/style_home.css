@@ -1,0 +1,228 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  /* Set color*/
+  --brown: #423838;
+  --background: #e0e0c5;
+
+  /* Set size*/
+  --text_1: 12px;
+  --text_2: 16px;
+  --text_3: 20px;
+  --text_4: 24px;
+  --text_5: 28px;
+  --text_6: 32px;
+  --text_7: 36px;
+  --text_8: 40px;
+  --text_9: 44px;
+  --text_10: 48px;
+}
+
+@font-face {
+  font-family: satoshi-regular;
+  src: url(../fonts/satoshi/Satoshi-Regular.otf);
+}
+
+@font-face {
+  font-family: satoshi-medium;
+  src: url(../fonts/satoshi/Satoshi-Medium.otf);
+}
+
+@font-face {
+  font-family: satoshi-bold;
+  src: url(../fonts/satoshi/Satoshi-Bold.otf);
+}
+
+@font-face {
+  font-family: clash-display-medium;
+  src: url(../fonts/clash-display/ClashDisplay-Medium.otf);
+}
+
+body {
+  background-color: var(--background);
+  margin: 20px;
+}
+
+/* Usercard */
+.usercard_logout {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.container_usercard {
+  border: 2px solid var(--brown);
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+}
+
+.usercard img {
+  height: 50px;
+  border-radius: 10%;
+}
+
+.usercard {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.usercard_info {
+  color: var(--brown);
+}
+
+.usercard_name {
+  font-family: clash-display-medium;
+  font-size: var(--text_4);
+}
+
+.usercard_mail {
+  font-family: satoshi-regular;
+  font-size: var(--text_2);
+}
+
+.button_logout {
+  padding-top: 15px;
+}
+
+.button_logout a {
+  font-family: clash-display-medium;
+  font-size: var(--text_1);
+  color: var(--brown);
+  text-decoration: none;
+}
+
+/* Pet & Task */
+.container_pet_task {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+/* Pet */
+.container_pet {
+  border: 2px solid var(--brown);
+  padding: 20px;
+  border-radius: 10px;
+  height: fit-content;
+}
+
+.pet img {
+  width: 300px;
+  margin: 100px;
+}
+
+.pet_name {
+  font-family: clash-display-medium;
+  font-size: var(--text_4);
+  color: var(--brown);
+}
+
+.pet_progress {
+  font-family: satoshi-regular;
+  font-size: var(--text_3);
+  color: var(--brown);
+}
+
+.pet_progress {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+/* Task */
+.container_task {
+  border: 2px solid var(--brown);
+  padding-top: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-radius: 10px;
+  width: 100%;
+}
+
+.title {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.button_add {
+  font-family: clash-display-medium;
+  font-size: var(--text_3);
+  color: var(--brown);
+  border: 2px solid var(--brown);
+  border-radius: 100px;
+  width: 30px;
+  height: 30px;
+  background-color: var(--background);
+}
+
+.button_more {
+  font-family: clash-display-medium;
+  font-size: var(--text_3);
+  color: var(--brown);
+  border: 2px solid var(--brown);
+  border-radius: 100px;
+  width: 30px;
+  height: 30px;
+  background-color: var(--background);
+}
+
+.your_task {
+  font-family: clash-display-medium;
+  font-size: var(--text_4);
+  color: var(--brown);
+}
+
+.taskcard {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.container_undone {
+  border: 2px solid var(--brown);
+  padding: 20px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.container_done {
+  border: 2px solid var(--brown);
+  padding: 20px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.category img {
+  width: 50px;
+}
+
+.task_title {
+  font-family: clash-display-medium;
+  font-size: var(--text_3);
+  color: var(--brown);
+}
+
+.task_time {
+  font-family: satoshi-regular;
+  font-size: var(--text_1);
+  color: var(--brown);
+}
+
+.task_desc {
+  font-family: satoshi-regular;
+  font-size: var(--text_2);
+  color: var(--brown);
+}

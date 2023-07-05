@@ -46,57 +46,60 @@ body {
   margin: 20px;
 }
 
-/* Usercard */
-.container_usercard {
+.container_login {
   border: 2px solid var(--brown);
   padding: 20px;
-  margin-bottom: 20px;
   border-radius: 10px;
+  width: fit-content;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
 }
 
-.usercard img {
-  height: 50px;
-  border-radius: 10%;
+form * {
+  outline: none;
+  border: none;
 }
 
-.usercard {
-  display: flex;
-  flex-direction: row;
-  gap: 20px;
+.title_login {
+  font-family: clash-display-medium;
+  font-size: var(--text_4);
+  color: var(--brown);
+  margin-bottom: 20px;
+  text-align: center;
 }
 
-.usercard_info {
+.email,
+.password {
+  font-family: satoshi-medium;
+  font-size: var(--text_3);
   color: var(--brown);
 }
 
-.usercard_name {
-  font-family: clash-display-medium;
-  font-size: var(--text_4);
-}
-
-.usercard_mail {
-  font-family: satoshi-regular;
-  font-size: var(--text_2);
-}
-
-/* Pet */
-.container_pet {
+.input {
+  /* display: block; */
   border: 2px solid var(--brown);
-  padding: 20px;
+  height: 50px;
+  width: 380px;
+  background-color: var(--background);
   border-radius: 10px;
+  padding: 0 10px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  font-size: var(--text_2);
+  font-family: satoshi-regular;
 }
 
-.pet img {
-  width: 300px;
-  margin: 100px;
-}
-
-.pet_name {
+.button_login {
   font-family: clash-display-medium;
-  font-size: var(--text_4);
-}
-
-.pet_progress {
-  display: flex;
-  flex-direction: row;
+  font-size: var(--text_3);
+  color: var(--brown);
+  border: 2px solid var(--brown);
+  border-radius: 10px;
+  width: 403px;
+  height: 50px;
+  padding: 0 10px;
+  background-color: var(--background);
+  margin-top: 20px;
 }
