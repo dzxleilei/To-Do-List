@@ -86,7 +86,8 @@ body {
 }
 
 .button_logout {
-  padding-top: 15px;
+  display: flex;
+  align-items: center;
 }
 
 .button_logout a {
@@ -142,6 +143,7 @@ body {
   padding-right: 20px;
   border-radius: 10px;
   width: 100%;
+  height: fit-content;
 }
 
 .title {
@@ -173,6 +175,12 @@ body {
   background-color: var(--background);
 }
 
+.loading_text {
+  font-family: satoshi-regular;
+  font-size: var(--text_2);
+  color: var(--brown);
+}
+
 .your_task {
   font-family: clash-display-medium;
   font-size: var(--text_4);
@@ -193,6 +201,7 @@ body {
   flex-direction: row;
   justify-content: space-between;
   margin-bottom: 20px;
+  align-items: center;
 }
 
 .container_done {
@@ -203,6 +212,11 @@ body {
   flex-direction: row;
   justify-content: space-between;
   margin-bottom: 20px;
+}
+
+.category {
+  display: flex;
+  align-items: center;
 }
 
 .category img {
@@ -225,4 +239,38 @@ body {
   font-family: satoshi-regular;
   font-size: var(--text_2);
   color: var(--brown);
+}
+
+.checkbox_delete_edit {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.task_checkbox {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.button_delete {
+  font-family: satoshi regular;
+  font-size: var(--text_1);
+  color: var(--brown);
+  border: 2px solid var(--brown);
+  border-radius: 10px;
+  width: 60px;
+  height: 30px;
+  background-color: var(--background);
+}
+
+.button_edit {
+  font-family: satoshi regular;
+  font-size: var(--text_1);
+  color: var(--brown);
+  border: 2px solid var(--brown);
+  border-radius: 10px;
+  width: 60px;
+  height: 30px;
+  background-color: var(--background);
 }
