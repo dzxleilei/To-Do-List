@@ -94,12 +94,13 @@ form * {
 .button_login {
   font-family: clash-display-medium;
   font-size: var(--text_3);
-  color: var(--brown);
-  border: 2px solid var(--brown);
+  color: var(--background);
+  border: 2px solid var(--background);
   border-radius: 10px;
   width: 403px;
   height: 50px;
   padding: 0 10px;
-  background-color: var(--background);
+  background-color: var(--brown);
   margin-top: 20px;
+  cursor: pointer;
 }

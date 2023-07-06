@@ -28,16 +28,19 @@ if ($act == "set_done") {
                     <p class="pet_complete">
                     <?php echo $taskCompleted['completed_count']; ?> Task Completed
                     </p>
-                    <p class="pet_percent">xp</p>
+                    <p class="pet_percent">
+                    <?php echo $taskCompleted['completed_count'] * 100; ?> xp
+                    </p>
                 <?php }
 
 } else if ($act == "loading") {
-    $sql = "select t.*, c.name, c.photo from tb_tasks t left join tb_categories c on t.category_id = c.id where user_id='$user_id' and status_id=1";
+    $sql = "select t.*, c.name, c.photo from tb_tasks t left join tb_categories c on t.category_id = c.id where user_id='$user_id' and status_id=1 order by task_date asc";
     $query = mysqli_query($conn, $sql);
     while ($result = mysqli_fetch_array($query)) {
         $task_id = $result['id'];
         $task_title = $result['task_name'];
         $task_deadline = $result['task_date'];
+        $task_deadtime = $result['task_time'];
         $task_desc = $result['task_desc'];
         $category = $result['name'];
         $category_img = $result['photo'];
@@ -52,7 +55,8 @@ if ($act == "set_done") {
                                         <?php echo $task_title; ?>
                                         </b></div>
                                     <div class="task_time">
-                                    <?php echo $task_deadline; ?>
+                                    <?php echo $task_deadline; ?> -
+                                    <?php echo $task_deadtime; ?>
                                     </div>
                                     <div class="task_desc">
                                     <?php echo $task_desc; ?>
@@ -60,28 +64,35 @@ if ($act == "set_done") {
                                 </div>
                             </div>
                             <div class="checkbox_delete_edit">
-                                <input type="checkbox" id="undone<?php echo $task_id; ?>" onclick="check_task(<?php echo $task_id; ?>)" />
+                                <label class="container_checkbox">
+                                    <input type="checkbox" class="tick" id="undone<?php echo $task_id; ?>"
+                                        onclick="check_task(<?php echo $task_id; ?>)" />
+                                    <span class="checkmark"></span>
+                                </label>
                                 <div class="task_checkbox">
                                     <button type="button" id="delete_undone<?php echo $task_id; ?>"
                                         onclick="delete_task(<?php echo $task_id; ?>)" class="button_delete" value="Delete">
                                         <p>Delete</p>
                                     </button>
-                                    <button type="button" id="edit_undone<?php echo $task_id; ?>" onclick="edit_task(<?php echo $task_id; ?>)"
-                                        class="button_edit" value="Edit">
-                                        <p>Edit</p>
-                                    </button>
+                                    <a href="#divUpdate">
+                                        <button type="button" id="edit_undone<?php echo $task_id; ?>"
+                                            onclick="edit_task(<?php echo $task_id; ?>)" class="button_edit" value="Edit">
+                                            <p>Edit</p>
+                                        </button>
+                                    </a>
                                 </div>
                             </div>
                         </div>
                         <?php
     }
 } else if ($act == "completed") {
-    $sql = "select t.*, c.name, c.photo from tb_tasks t left join tb_categories c on t.category_id = c.id where user_id='$user_id' and status_id=2";
+    $sql = "select t.*, c.name, c.photo from tb_tasks t left join tb_categories c on t.category_id = c.id where user_id='$user_id' and status_id=2 order by task_date desc";
     $query = mysqli_query($conn, $sql);
     while ($result = mysqli_fetch_array($query)) {
         $task_id = $result['id'];
         $task_title = $result['task_name'];
         $task_deadline = $result['task_date'];
+        $task_deadtime = $result['task_time'];
         $task_desc = $result['task_desc'];
         $category = $result['category_name'];
         $category_img = $result['photo'];
@@ -96,7 +107,8 @@ if ($act == "set_done") {
                                             <?php echo $task_title; ?>
                                             </b></div>
                                         <div class="task_time">
-                                        <?php echo $task_deadline; ?>
+                                        <?php echo $task_deadline; ?> -
+                                        <?php echo $task_deadtime; ?>
                                         </div>
                                         <div class="task_desc">
                                         <?php echo $task_desc; ?>
@@ -104,21 +116,19 @@ if ($act == "set_done") {
                                     </div>
                                 </div>
                                 <div class="checkbox_delete_edit">
-                                    <input type="checkbox" id="done<?php echo $task_id; ?>" onclick="uncheck_task(<?php echo $task_id; ?>)"
-                                        checked />
+                                    <label class="container_checkbox">
+                                        <input type="checkbox" class="tick" id="done<?php echo $task_id; ?>"
+                                            onclick="uncheck_task(<?php echo $task_id; ?>)" checked />
+                                        <span class="checkmark"></span>
+                                    </label>
                                     <div class="task_checkbox">
-                                        <button type="button" id="delete_undone<?php echo $task_id; ?>"
-                                            onclick="delete_task(<?php echo $task_id; ?>)" class="button_delete" value="Delete">
+                                        <button type="button" id="delete_done<?php echo $task_id; ?>" onclick="delete_task(<?php echo $task_id; ?>)"
+                                            class="button_delete" value="Delete">
                                             <p>Delete</p>
-                                        </button>
-                                        <button type="button" id="edit_undone<?php echo $task_id; ?>" onclick="edit_task(<?php echo $task_id; ?>)"
-                                            class="button_edit" value="Edit">
-                                            <p>Edit</p>
                                         </button>
                                     </div>
                                 </div>
                             </div>
-                            <br>
                             <?php
     }
 }

@@ -45,7 +45,7 @@ $profile_photo = $_SESSION['photo'];
     <div class="container_pet">
       <div class="pet">
         <?php
-        $sql = "SELECT * FROM tb_users LEFT JOIN tb_pets ON tb_users.pet_id = tb_pets.id";
+        $sql = "SELECT * FROM tb_users LEFT JOIN tb_pets ON tb_users.pet_id = tb_pets.id WHERE tb_users.id='$user_id'";
         $query = mysqli_query($conn, $sql);
         while ($petResult = mysqli_fetch_array($query)) {
           ?>
@@ -67,7 +67,8 @@ $profile_photo = $_SESSION['photo'];
       <div class="task_undone">
         <div class="title">
           <p class="your_task"><b>Your Task</b></p>
-          <a href="add_task.php">
+          <a href="#divAdd">
+            <!-- <a href="add_task.php"> -->
             <input class="button_add" type="submit" value="+" name="add" />
           </a>
         </div>
@@ -85,17 +86,171 @@ $profile_photo = $_SESSION['photo'];
           <p class="loading_text">loading . . . . . . . . . </p>
         </div>
       </div>
+    </div>
+  </div>
 
-      <!-- Script -->
-      <script src="./assets/js/jquery-3.7.0.js"></script>
-      <script src="./assets/js/script.js"></script>
-      <script>
-        $(document).ready(function () {
-          get_data();
-          completed_data();
-          completed_count();
-        });
-      </script>
+  <!-- Add Task -->
+  <div class="overlayAdd" id="divAdd">
+    <div class="wrapper_add_task">
+      <p class="title_add_task"><b>Add New Task</b></p>
+      <a href="#" class="close">&times;</a>
+      <div class="content_add_task">
+        <div class="container_add_task">
+          <form method="post" action="sv_add_task.php">
+            <h3>Title</h3>
+            <div class="inputForm">
+              <input class="textField" type="text" name="task_name" id="task_name" placeholder="Add Task Title..."
+                required />
+            </div>
+            <h3>Description</h3>
+            <div class="inputForm">
+              <input class="textField" type="text" name="task_desc" id="task_desc"
+                placeholder="Add Task Description..." />
+            </div>
+            <div class="inputForm">
+              <h3>Category</h3>
+              <div class="customSelect">
+                <select name="category_id" id="category_id">
+                  <option value="" selected disabled>Select Category</option>
+                  <option value="1">Study</option>
+                  <option value="2">Sport</option>
+                  <option value="3">Meeting</option>
+                  <option value="4">Medic</option>
+                </select>
+                <span class="arrow"></span>
+              </div>
+            </div>
+            <div class="inputForm">
+              <h3>Priority</h3>
+              <div class="customSelect">
+                <select name="priority_id" id="priority_id">
+                  <option value="" selected disabled>Select Priority</option>
+                  <option value="1">Low</option>
+                  <option value="2">Medium</option>
+                  <option value="3">High</option>
+                </select>
+                <span class="arrow"></span>
+              </div>
+            </div>
+            <div class="inputForm_date">
+              <div class="inputForm">
+                <h3>Due Date</h3>
+                <div class="inputForm">
+                  <input class="textField" type="datetime-local" name="task_date" id="task_date">
+                </div>
+              </div>
+            </div>
+            <div class="button_add_tasks">
+              <center>
+                <td colspan="2"><input class="button_add_task" type="submit" value="Add Task" name="submit"></td>
+              </center>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Update Task -->
+  <?php
+  if (isset($_GET['task_id'])) {
+    $task_id = $_GET['task_id'];
+
+    $sql = "SELECT * FROM tb_tasks WHERE id = '$task_id'";
+    $result = mysqli_query($conn, $sql);
+    $task = mysqli_fetch_assoc($result);
+
+    // Periksa apakah ada data
+    if ($task) {
+      $task_name = $task['task_name'];
+      $task_date = $task['task_date'];
+      $task_time = $task['task_time'];
+      $task_desc = $task['task_desc'];
+      $priority_id = $task['priority_id'];
+      $category_id = $task['category_id'];
+      $reminder_id = $task['reminder_id'];
+      $status_id = $task['status_id'];
+
+      $old_priority_id = $priority_id;
+      $old_category_id = $category_id;
+      $old_reminder_id = $reminder_id;
+      $old_status_id = $status_id;
+    }
+  }
+  ?>
+
+  <div class="overlayUpdate" id="divUpdate">
+    <div class="wrapper_update_task">
+      <p class="title_update_task"><b>Edit Task</b></p>
+      <a href="#" class="close">&times;</a>
+      <div class="content_update_task">
+        <div class="container_update_task">
+          <form method="post" action="sv_add_task.php">
+            <h3>Title</h3>
+            <div class="inputForm">
+              <input class="textField" type="text" value="<?php echo $task_name; ?>" name="task_name" id="task_name"
+                placeholder="Add Task Title..." required />
+            </div>
+            <h3>Description</h3>
+            <div class="inputForm">
+              <input class="textField" type="text" value="<?php echo $task_desc; ?>" name="task_desc" id="task_desc"
+                placeholder="Add Task Description..." />
+            </div>
+            <div class="inputForm">
+              <h3>Category</h3>
+              <div class="customSelect">
+                <select name="category_id" id="category_id" value="<?php echo $old_category_id; ?>">
+                  <option value="" selected disabled>Select Category</option>
+                  <option value="1">Study</option>
+                  <option value="2">Sport</option>
+                  <option value="3">Meeting</option>
+                  <option value="4">Medic</option>
+                </select>
+                <span class="arrow"></span>
+              </div>
+            </div>
+            <div class="inputForm">
+              <h3>Priority</h3>
+              <div class="customSelect">
+                <select name="priority_id" id="priority_id" value="<?php echo $old_priority_id; ?>">
+                  <option value="" selected disabled>Select Priority</option>
+                  <option value="1">Low</option>
+                  <option value="2">Medium</option>
+                  <option value="3">High</option>
+                </select>
+                <span class="arrow"></span>
+              </div>
+            </div>
+            <div class="inputForm_date">
+              <div class="inputForm">
+                <h3>Due Date</h3>
+                <div class="inputForm">
+                  <input class="textField" type="datetime-local" name="task_date" id="task_date"
+                    value="<?php echo $task_date; ?>">
+                </div>
+              </div>
+            </div>
+            <div class="button_update_tasks">
+              <center>
+                <td colspan="2"><input class="button_add_task" type="submit" value="Update Task" name="submit"></td>
+              </center>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Script -->
+  <script src="./assets/js/jquery-3.7.0.js"></script>
+  <script src="./assets/js/script.js"></script>
+  <script>
+    $(document).ready(function () {
+      get_data();
+      completed_data();
+      completed_count();
+    });
+  </script>
 </body>
 
 </html>

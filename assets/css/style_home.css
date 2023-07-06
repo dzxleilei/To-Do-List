@@ -162,6 +162,7 @@ body {
   width: 30px;
   height: 30px;
   background-color: var(--background);
+  cursor: pointer;
 }
 
 .button_more {
@@ -173,6 +174,7 @@ body {
   width: 30px;
   height: 30px;
   background-color: var(--background);
+  cursor: pointer;
 }
 
 .loading_text {
@@ -245,12 +247,75 @@ body {
   display: flex;
   flex-direction: row;
   gap: 20px;
+  align-items: center;
 }
 
 .task_checkbox {
   display: flex;
   flex-direction: column;
   gap: 10px;
+}
+
+.container_checkbox {
+  display: block;
+  position: relative;
+  padding-left: 15px;
+  padding-bottom: 30px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.container_checkbox input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 27px;
+  width: 27px;
+  background-color: var(--background);
+  border: 2px solid var(--brown);
+  border-radius: 10px;
+}
+
+.container_checkbox:hover input ~ .checkmark {
+  background-color: lightgray;
+}
+
+.container_checkbox input:checked ~ .checkmark {
+  background-color: var(--brown);
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.container_checkbox input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.container_checkbox .checkmark:after {
+  left: 10.5px;
+  top: 6px;
+  width: 5px;
+  height: 10px;
+  border: solid var(--background);
+  border-width: 0 2px 2px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
 }
 
 .button_delete {
@@ -262,6 +327,7 @@ body {
   width: 60px;
   height: 30px;
   background-color: var(--background);
+  cursor: pointer;
 }
 
 .button_edit {
@@ -273,4 +339,145 @@ body {
   width: 60px;
   height: 30px;
   background-color: var(--background);
+  cursor: pointer;
+}
+
+/* Add Task */
+.overlayAdd {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: var(--background);
+  transition: opacity 500ms;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.overlayAdd:target {
+  visibility: visible;
+  opacity: 1;
+}
+
+.wrapper_add_task {
+  border: 2px solid var(--brown);
+  padding: 20px;
+  border-radius: 10px;
+  width: fit-content;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+}
+
+form * {
+  outline: none;
+  border: none;
+}
+
+.title_add_task {
+  font-family: clash-display-medium;
+  font-size: var(--text_4);
+  color: var(--brown);
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  transition: all 200ms;
+  font-size: var(--text_5);
+  text-decoration: none;
+  font-weight: bolder;
+  color: var(--brown);
+}
+
+h3 {
+  font-family: satoshi-medium;
+  font-size: var(--text_3);
+  color: var(--brown);
+}
+
+.textField,
+#category_id,
+#priority_id {
+  display: block;
+  border: 2px solid var(--brown);
+  height: 50px;
+  width: 380px;
+  background-color: var(--background);
+  border-radius: 10px;
+  padding: 0 10px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  font-size: var(--text_2);
+  font-family: satoshi-regular;
+}
+
+.button_add_task {
+  font-family: clash-display-medium;
+  font-size: var(--text_3);
+  color: var(--background);
+  border: 2px solid var(--background);
+  border-radius: 10px;
+  width: 403px;
+  height: 50px;
+  padding: 0 10px;
+  background-color: var(--brown);
+  margin-top: 20px;
+  cursor: pointer;
+}
+
+/* Update Task */
+.overlayUpdate {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: var(--background);
+  transition: opacity 500ms;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.overlayUpdate:target {
+  visibility: visible;
+  opacity: 1;
+}
+
+.wrapper_update_task {
+  border: 2px solid var(--brown);
+  padding: 20px;
+  border-radius: 10px;
+  width: fit-content;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+}
+
+.title_update_task {
+  font-family: clash-display-medium;
+  font-size: var(--text_4);
+  color: var(--brown);
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.button_update_task {
+  font-family: clash-display-medium;
+  font-size: var(--text_3);
+  color: var(--background);
+  border: 2px solid var(--background);
+  border-radius: 10px;
+  width: 403px;
+  height: 50px;
+  padding: 0 10px;
+  background-color: var(--brown);
+  margin-top: 20px;
+  cursor: pointer;
 }
