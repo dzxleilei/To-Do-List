@@ -83,3 +83,43 @@ function completed_count() {
     },
   });
 }
+
+function edit_task(id) {
+  $.ajax({
+    url: "sv_task.php",
+    method: "POST",
+    data: {
+      id: id,
+      act: "editTask",
+    },
+    success: function (result) {
+      var data = result.split("|");
+
+      $("#edit_task_name").val(data[1]);
+
+      $(".overlayUpdate").css("visibility", "visible");
+      $(".overlayUpdate").css("opacity", 1);
+    },
+  });
+}
+
+$(".close").on("click", function () {
+  $(".overlayUpdate").css("visibility", "hidden");
+  $(".overlayUpdate").css("opacity", 0);
+});
+
+function save_task() {
+  $.ajax({
+    url: "sv_task.php",
+    method: "POST",
+    data: {
+      task_name: $("#task_name").val(),
+      task_desc: $("#task_desc").val(),
+      task_date: $("#task_date").val(),
+      act: "saveTask",
+    },
+    success: function () {
+      alert("data berhasil disimpan");
+    },
+  });
+}

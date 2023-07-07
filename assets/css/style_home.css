@@ -444,10 +444,10 @@ h3 {
   opacity: 0;
 }
 
-.overlayUpdate:target {
+/* .overlayUpdate:target {
   visibility: visible;
   opacity: 1;
-}
+} */
 
 .wrapper_update_task {
   border: 2px solid var(--brown);

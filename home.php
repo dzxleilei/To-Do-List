@@ -89,67 +89,7 @@ $profile_photo = $_SESSION['photo'];
     </div>
   </div>
 
-  <!-- Add Task -->
-  <div class="overlayAdd" id="divAdd">
-    <div class="wrapper_add_task">
-      <p class="title_add_task"><b>Add New Task</b></p>
-      <a href="#" class="close">&times;</a>
-      <div class="content_add_task">
-        <div class="container_add_task">
-          <form method="post" action="sv_add_task.php">
-            <h3>Title</h3>
-            <div class="inputForm">
-              <input class="textField" type="text" name="task_name" id="task_name" placeholder="Add Task Title..."
-                required />
-            </div>
-            <h3>Description</h3>
-            <div class="inputForm">
-              <input class="textField" type="text" name="task_desc" id="task_desc"
-                placeholder="Add Task Description..." />
-            </div>
-            <div class="inputForm">
-              <h3>Category</h3>
-              <div class="customSelect">
-                <select name="category_id" id="category_id">
-                  <option value="" selected disabled>Select Category</option>
-                  <option value="1">Study</option>
-                  <option value="2">Sport</option>
-                  <option value="3">Meeting</option>
-                  <option value="4">Medic</option>
-                </select>
-                <span class="arrow"></span>
-              </div>
-            </div>
-            <div class="inputForm">
-              <h3>Priority</h3>
-              <div class="customSelect">
-                <select name="priority_id" id="priority_id">
-                  <option value="" selected disabled>Select Priority</option>
-                  <option value="1">Low</option>
-                  <option value="2">Medium</option>
-                  <option value="3">High</option>
-                </select>
-                <span class="arrow"></span>
-              </div>
-            </div>
-            <div class="inputForm_date">
-              <div class="inputForm">
-                <h3>Due Date</h3>
-                <div class="inputForm">
-                  <input class="textField" type="datetime-local" name="task_date" id="task_date">
-                </div>
-              </div>
-            </div>
-            <div class="button_add_tasks">
-              <center>
-                <td colspan="2"><input class="button_add_task" type="submit" value="Add Task" name="submit"></td>
-              </center>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
+  <?php include "frm_task.php"; ?>
 
   <!-- Update Task -->
   <?php
@@ -185,57 +125,55 @@ $profile_photo = $_SESSION['photo'];
       <a href="#" class="close">&times;</a>
       <div class="content_update_task">
         <div class="container_update_task">
-          <form method="post" action="sv_add_task.php">
-            <h3>Title</h3>
-            <div class="inputForm">
-              <input class="textField" type="text" value="<?php echo $task_name; ?>" name="task_name" id="task_name"
-                placeholder="Add Task Title..." required />
+          <h3>Title</h3>
+          <div class="inputForm">
+            <input class="textField" type="text" value="<?php echo $task_name; ?>" name="edit_task_name"
+              id="edit_task_name" placeholder="Add Task Title..." required />
+          </div>
+          <h3>Description</h3>
+          <div class="inputForm">
+            <input class="textField" type="text" value="<?php echo $task_desc; ?>" name="task_desc" id="task_desc"
+              placeholder="Add Task Description..." />
+          </div>
+          <div class="inputForm">
+            <h3>Category</h3>
+            <div class="customSelect">
+              <select name="category_id" id="category_id" value="<?php echo $old_category_id; ?>">
+                <option value="" selected disabled>Select Category</option>
+                <option value="1">Study</option>
+                <option value="2">Sport</option>
+                <option value="3">Meeting</option>
+                <option value="4">Medic</option>
+              </select>
+              <span class="arrow"></span>
             </div>
-            <h3>Description</h3>
-            <div class="inputForm">
-              <input class="textField" type="text" value="<?php echo $task_desc; ?>" name="task_desc" id="task_desc"
-                placeholder="Add Task Description..." />
+          </div>
+          <div class="inputForm">
+            <h3>Priority</h3>
+            <div class="customSelect">
+              <select name="priority_id" id="priority_id" value="<?php echo $old_priority_id; ?>">
+                <option value="" selected disabled>Select Priority</option>
+                <option value="1">Low</option>
+                <option value="2">Medium</option>
+                <option value="3">High</option>
+              </select>
+              <span class="arrow"></span>
             </div>
+          </div>
+          <div class="inputForm_date">
             <div class="inputForm">
-              <h3>Category</h3>
-              <div class="customSelect">
-                <select name="category_id" id="category_id" value="<?php echo $old_category_id; ?>">
-                  <option value="" selected disabled>Select Category</option>
-                  <option value="1">Study</option>
-                  <option value="2">Sport</option>
-                  <option value="3">Meeting</option>
-                  <option value="4">Medic</option>
-                </select>
-                <span class="arrow"></span>
-              </div>
-            </div>
-            <div class="inputForm">
-              <h3>Priority</h3>
-              <div class="customSelect">
-                <select name="priority_id" id="priority_id" value="<?php echo $old_priority_id; ?>">
-                  <option value="" selected disabled>Select Priority</option>
-                  <option value="1">Low</option>
-                  <option value="2">Medium</option>
-                  <option value="3">High</option>
-                </select>
-                <span class="arrow"></span>
-              </div>
-            </div>
-            <div class="inputForm_date">
+              <h3>Due Date</h3>
               <div class="inputForm">
-                <h3>Due Date</h3>
-                <div class="inputForm">
-                  <input class="textField" type="datetime-local" name="task_date" id="task_date"
-                    value="<?php echo $task_date; ?>">
-                </div>
+                <input class="textField" type="datetime-local" name="task_date" id="task_date"
+                  value="<?php echo $task_date; ?>">
               </div>
             </div>
-            <div class="button_update_tasks">
-              <center>
-                <td colspan="2"><input class="button_add_task" type="submit" value="Update Task" name="submit"></td>
-              </center>
-            </div>
-          </form>
+          </div>
+          <div class="button_update_tasks">
+            <center>
+              <td colspan="2"><input class="button_add_task" type="submit" value="Update Task" name="submit"></td>
+            </center>
+          </div>
         </div>
       </div>
     </div>
