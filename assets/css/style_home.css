@@ -153,14 +153,35 @@ body {
   margin-bottom: 20px;
 }
 
+.button_filter_add {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  align-items: center;
+}
+
+.button_filter {
+  font-family: clash-display-medium;
+  font-size: var(--text_1);
+  color: var(--brown);
+  border: 2px solid var(--brown);
+  border-radius: 100px;
+  width: 22px;
+  height: 22px;
+  background-color: var(--background);
+  cursor: pointer;
+  padding-left: 10px;
+  padding-top: 10px;
+}
+
 .button_add {
   font-family: clash-display-medium;
   font-size: var(--text_3);
   color: var(--brown);
   border: 2px solid var(--brown);
   border-radius: 100px;
-  width: 30px;
-  height: 30px;
+  width: 35px;
+  height: 35px;
   background-color: var(--background);
   cursor: pointer;
 }
@@ -252,8 +273,8 @@ body {
 
 .task_checkbox {
   display: flex;
-  flex-direction: column;
-  gap: 10px;
+  flex-direction: row;
+  gap: 4px;
 }
 
 .container_checkbox {
@@ -286,10 +307,13 @@ body {
   background-color: var(--background);
   border: 2px solid var(--brown);
   border-radius: 10px;
+  font-size: var(--text_2);
+  color: var(--brown);
+  cursor: pointer;
 }
 
 .container_checkbox:hover input ~ .checkmark {
-  background-color: lightgray;
+  background-color: #bbadad;
 }
 
 .container_checkbox input:checked ~ .checkmark {
@@ -324,10 +348,14 @@ body {
   color: var(--brown);
   border: 2px solid var(--brown);
   border-radius: 10px;
-  width: 60px;
+  width: 30px;
   height: 30px;
   background-color: var(--background);
   cursor: pointer;
+}
+
+.button_delete:hover {
+  background-color: #bbadad;
 }
 
 .button_edit {
@@ -336,10 +364,14 @@ body {
   color: var(--brown);
   border: 2px solid var(--brown);
   border-radius: 10px;
-  width: 60px;
+  width: 30px;
   height: 30px;
   background-color: var(--background);
   cursor: pointer;
+}
+
+.button_edit:hover {
+  background-color: #bbadad;
 }
 
 /* Add Task */
@@ -393,6 +425,7 @@ form * {
   text-decoration: none;
   font-weight: bolder;
   color: var(--brown);
+  cursor: pointer;
 }
 
 h3 {
@@ -403,7 +436,9 @@ h3 {
 
 .textField,
 #category_id,
-#priority_id {
+#priority_id,
+#edit_category_id,
+#edit_priority_id {
   display: block;
   border: 2px solid var(--brown);
   height: 50px;
@@ -443,11 +478,6 @@ h3 {
   visibility: hidden;
   opacity: 0;
 }
-
-/* .overlayUpdate:target {
-  visibility: visible;
-  opacity: 1;
-} */
 
 .wrapper_update_task {
   border: 2px solid var(--brown);

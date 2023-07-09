@@ -2,9 +2,6 @@
 include "config/security.php";
 include "config/connection.php";
 $user_id = $_SESSION['id'];
-$email = $_SESSION['email'];
-$username = $_SESSION['username'];
-$profile_photo = $_SESSION['photo'];
 ?>
 
 <!DOCTYPE html>
@@ -67,10 +64,14 @@ $profile_photo = $_SESSION['photo'];
       <div class="task_undone">
         <div class="title">
           <p class="your_task"><b>Your Task</b></p>
-          <a href="#divAdd">
-            <!-- <a href="add_task.php"> -->
-            <input class="button_add" type="submit" value="+" name="add" />
-          </a>
+          <div class="button_filter_add">
+            <a href="report.php">
+              <div class="button_filter"><i class="fa-solid fa-filter"></i></div>
+            </a>
+            <a href="#divAdd">
+              <input class="button_add" type="submit" value="+" name="add" />
+            </a>
+          </div>
         </div>
         <div class="task_active_list" id="active_tasks">
           <p class="loading_text">loading . . . . . . . . . </p>
@@ -89,99 +90,14 @@ $profile_photo = $_SESSION['photo'];
     </div>
   </div>
 
-  <?php include "frm_task.php"; ?>
-
+  <!-- Add Task -->
   <!-- Update Task -->
-  <?php
-  if (isset($_GET['task_id'])) {
-    $task_id = $_GET['task_id'];
-
-    $sql = "SELECT * FROM tb_tasks WHERE id = '$task_id'";
-    $result = mysqli_query($conn, $sql);
-    $task = mysqli_fetch_assoc($result);
-
-    // Periksa apakah ada data
-    if ($task) {
-      $task_name = $task['task_name'];
-      $task_date = $task['task_date'];
-      $task_time = $task['task_time'];
-      $task_desc = $task['task_desc'];
-      $priority_id = $task['priority_id'];
-      $category_id = $task['category_id'];
-      $reminder_id = $task['reminder_id'];
-      $status_id = $task['status_id'];
-
-      $old_priority_id = $priority_id;
-      $old_category_id = $category_id;
-      $old_reminder_id = $reminder_id;
-      $old_status_id = $status_id;
-    }
-  }
-  ?>
-
-  <div class="overlayUpdate" id="divUpdate">
-    <div class="wrapper_update_task">
-      <p class="title_update_task"><b>Edit Task</b></p>
-      <a href="#" class="close">&times;</a>
-      <div class="content_update_task">
-        <div class="container_update_task">
-          <h3>Title</h3>
-          <div class="inputForm">
-            <input class="textField" type="text" value="<?php echo $task_name; ?>" name="edit_task_name"
-              id="edit_task_name" placeholder="Add Task Title..." required />
-          </div>
-          <h3>Description</h3>
-          <div class="inputForm">
-            <input class="textField" type="text" value="<?php echo $task_desc; ?>" name="task_desc" id="task_desc"
-              placeholder="Add Task Description..." />
-          </div>
-          <div class="inputForm">
-            <h3>Category</h3>
-            <div class="customSelect">
-              <select name="category_id" id="category_id" value="<?php echo $old_category_id; ?>">
-                <option value="" selected disabled>Select Category</option>
-                <option value="1">Study</option>
-                <option value="2">Sport</option>
-                <option value="3">Meeting</option>
-                <option value="4">Medic</option>
-              </select>
-              <span class="arrow"></span>
-            </div>
-          </div>
-          <div class="inputForm">
-            <h3>Priority</h3>
-            <div class="customSelect">
-              <select name="priority_id" id="priority_id" value="<?php echo $old_priority_id; ?>">
-                <option value="" selected disabled>Select Priority</option>
-                <option value="1">Low</option>
-                <option value="2">Medium</option>
-                <option value="3">High</option>
-              </select>
-              <span class="arrow"></span>
-            </div>
-          </div>
-          <div class="inputForm_date">
-            <div class="inputForm">
-              <h3>Due Date</h3>
-              <div class="inputForm">
-                <input class="textField" type="datetime-local" name="task_date" id="task_date"
-                  value="<?php echo $task_date; ?>">
-              </div>
-            </div>
-          </div>
-          <div class="button_update_tasks">
-            <center>
-              <td colspan="2"><input class="button_add_task" type="submit" value="Update Task" name="submit"></td>
-            </center>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <?php include "frm_task.php"; ?>
 
   <!-- Script -->
   <script src="./assets/js/jquery-3.7.0.js"></script>
   <script src="./assets/js/script.js"></script>
+  <script src="https://kit.fontawesome.com/67a87c1aef.js" crossorigin="anonymous"></script>
   <script>
     $(document).ready(function () {
       get_data();

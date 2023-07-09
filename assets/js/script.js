@@ -6,7 +6,7 @@ function check_task(task_id) {
       id: task_id,
       act: "set_done",
     },
-    success: function (result) {
+    success: function () {
       get_data();
       completed_data();
       completed_count();
@@ -22,7 +22,7 @@ function uncheck_task(task_id) {
       id: task_id,
       act: "uncheck",
     },
-    success: function (result) {
+    success: function () {
       get_data();
       completed_data();
       completed_count();
@@ -94,11 +94,44 @@ function edit_task(id) {
     },
     success: function (result) {
       var data = result.split("|");
-
       $("#edit_task_name").val(data[1]);
+      $("#edit_task_desc").val(data[2]);
+      $("#edit_category_id").val(data[3]);
+      $("#edit_priority_id").val(data[4]);
+      $("#edit_task_date").val(data[5]);
+      $("#edit_task_time").val(data[6]);
+      $("#task_id").val(data[7]);
+      // id = $("#id").val(data[7]);
 
       $(".overlayUpdate").css("visibility", "visible");
       $(".overlayUpdate").css("opacity", 1);
+      // $("#button_edit_task").unbind("click");
+      // $("#button_edit_task").on("click", function () {
+      //   update_task();
+      // });
+    },
+  });
+}
+
+function update_task() {
+  // console.log(document.getElementById("edit_task_time").value);
+  $.ajax({
+    url: "sv_task.php",
+    method: "POST",
+    data: {
+      task_name: $("#edit_task_name").val(),
+      task_desc: $("#edit_task_desc").val(),
+      category_id: $("#edit_category_id").val(),
+      priority_id: $("#edit_priority_id").val(),
+      task_date: $("#edit_task_date").val(),
+      task_time: $("#edit_task_time").val(),
+      id: $("#task_id").val(),
+      act: "updateTask",
+    },
+    success: function () {
+      alert("Data berhasil diubah!");
+      get_data();
+      completed_data();
     },
   });
 }
@@ -106,6 +139,7 @@ function edit_task(id) {
 $(".close").on("click", function () {
   $(".overlayUpdate").css("visibility", "hidden");
   $(".overlayUpdate").css("opacity", 0);
+  window.location = "#";
 });
 
 function save_task() {
@@ -115,11 +149,37 @@ function save_task() {
     data: {
       task_name: $("#task_name").val(),
       task_desc: $("#task_desc").val(),
+      category_id: $("#category_id").val(),
+      priority_id: $("#priority_id").val(),
       task_date: $("#task_date").val(),
+      task_time: $("#task_time").val(),
       act: "saveTask",
     },
     success: function () {
-      alert("data berhasil disimpan");
+      alert("Data berhasil disimpan!");
+      get_data();
+      completed_data();
+      window.location = "#";
+    },
+  });
+}
+
+function vw_result() {
+  var from_date = $("#from_date").val();
+  var to_date = $("#to_date").val();
+  var status = $("#status").val();
+  $.ajax({
+    url: "sv_task.php",
+    method: "POST",
+    data: {
+      from_date: from_date,
+      to_date: to_date,
+      status: status,
+      act: "view",
+    },
+    success: function (result) {
+      $("#tdl").css({ display: "none" });
+      $("#report_result").html(result);
     },
   });
 }
