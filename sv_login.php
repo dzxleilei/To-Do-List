@@ -16,11 +16,13 @@ if (isset($_POST['submit'])) {
             $id = $row['id'];
             $username = $row['username'];
             $photo = $row['photo'];
+            $fullname = $row['fullname'];
 
             $_SESSION['id'] = $id;
             $_SESSION['email'] = $email;
             $_SESSION['username'] = $username;
-            $_SESSION['photo'] = $photo;    
+            $_SESSION['photo'] = $photo;
+            $_SESSION['fullname'] = $fullname;
 
             if ($status == 1) {
                 // User is an admin (status = 1)

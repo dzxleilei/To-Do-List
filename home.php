@@ -21,7 +21,7 @@ $user_id = $_SESSION['id'];
   <div class="container_usercard">
     <div class="usercard_logout">
       <div class="usercard">
-        <img src="assets/images/<?php echo $profile_photo; ?>" alt="Avatar" />
+        <a href="profile.php"><img src="assets/images/<?php echo $profile_photo; ?>" alt="Avatar" /></a>
         <div class="usercard_info">
           <p class="usercard_name"><b>
               <?php echo $username; ?>
@@ -81,7 +81,7 @@ $user_id = $_SESSION['id'];
       <div class="task_done">
         <div class="title">
           <p class="your_task"><b>Completed Task</b></p>
-          <input class="button_more" type="submit" value=">" name="more" />
+          <!-- <input class="button_more" type="submit" value=">" name="more" /> -->
         </div>
         <div class="task_active_list" id="completed_tasks">
           <p class="loading_text">loading . . . . . . . . . </p>

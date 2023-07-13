@@ -1,97 +1,54 @@
 <?php
 include "config/security.php";
 include "config/connection.php";
-$user_id = $_SESSION['id'];
-$email = $_SESSION['email'];
-$username = $_SESSION['username'];
-$profile_photo = $_SESSION['photo'];
-
-$sql_status = "SELECT * FROM tb_status";
-$query = mysqli_query($conn, $sql_status);
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Code Blaze</title>
-
-    <link rel="stylesheet" href="assets/css/style_home.css" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="icon" type="image/x-icon" href="" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Blaze - Report</title>
 </head>
 
-<body class="body">
-    <!-- <body> -->
-    <div class="container">
-        <br>
-        <div class="row">
-            <div class="col-12">
-                <button onclick="javascript:location.href='home.php'" class="logout">BACK</button>
+<body>
+    <div class="filter_body">
+        <div class="profile">
+            <div class="profile_picture">
+                <img class="profile_img" src=" ./assets/picture/<?php echo $profile_img; ?>" alt="">
             </div>
+            <!-- <div class="profile_name">
+                <p class="text1 white">
+                    <!-- <?php echo $username; ?> -->
+            </p>
+            <p class="text3 white">
+                <!-- <?php echo $email; ?> -->
+            </p>
         </div>
-        <form method="POST">
-            <br>
-            <div class="row">
-                <div class="col-12">
-                    <input type="date" name="from_date" class="from_date form-control" id="from_date" placeholder="from"
-                        style="max-width: 25%;float: left;" value="">
-                    <span style="float:left;">s/d</span>
-                    <input type="date" name="to_date" class="to_date form-control" id="to_date" placeholder="to"
-                        style="max-width: 25%;float: left;" value="">
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-12">
-                    <span>Status </span>
-                    <select name="status" class="status form-select" id="status" style="max-width: 25%;">
-                        <option value="all">All</option>
-                        <?php
-                        while ($num1 = mysqli_fetch_array($query)) {
-                            $id_status = $num1['id'];
-                            $status = $num1['status'];
-                            ?>
-                            <option id="<?php echo $status; ?>" name="<?php echo $status; ?>"
-                                value="<?php echo $id_status; ?>"><?php echo $status; ?></option>
-                            <?php
-                        }
-                        ?>
-                        <option value="none">None</option>
-                    </select>
-                </div>
-            </div>
-            <br>
-
-            <div class="row">
-                <div class="col-12">
-                    <input type="button" name="view_result" class="view_result logout" id="view_result" value="VIEW"
-                        style="width:25%;" onclick="vw_result()">
-                </div>
-            </div>
-            <br>
-            <div class="row">
-                <div class="todolist">
-                    <br>
-                    <div id="tdl" style="display:block; height: 200px;"></div>
-                    <div id="report_result">
-                    </div>
-                </div>
-            </div>
-        </form>
+    </div>
+    <div class="filter_date_main">
+        <p class="bold white text1">Date</p>
+        <input type="date" id="start_date" name="start_date" value="">
+        <p class="bold white text1">s/d
+        <p>
+            <input type="date" id="end_date" name="end_date" value="">
+    </div>
+    <div class="filter_status_main">
+        <p class="bold white text1">Status</p>
+        <select name="filter_status" id="filter_status">
+            <option value="all">All</option>
+            <option value="1">Active</option>
+            <option value="2">Done</option>
+        </select>
+    </div>
+    <br><br>
+    <input type="button" id="filter_button" class="filter_button white bold" value="VIEW" onclick="filter_task()">
+    <div id="filter_result"></div>
     </div>
 
+    <script src="assets/js/script.js"></script>
     <script src="assets/js/jquery-3.7.0.js"></script>
-    <script src="https://kit.fontawesome.com/67a87c1aef.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/js/user.js"></script>
-
-    <script>
-        $(document).ready(function () {
-        });
-    </script>
 </body>
 
 </html>

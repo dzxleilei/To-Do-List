@@ -1,0 +1,176 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  /* Set color*/
+  --brown: #423838;
+  --background: #e0e0c5;
+
+  /* Set size*/
+  --text_1: 12px;
+  --text_2: 16px;
+  --text_3: 20px;
+  --text_4: 24px;
+  --text_5: 28px;
+  --text_6: 32px;
+  --text_7: 36px;
+  --text_8: 40px;
+  --text_9: 44px;
+  --text_10: 48px;
+}
+
+@font-face {
+  font-family: satoshi-regular;
+  src: url(../fonts/satoshi/Satoshi-Regular.otf);
+}
+
+@font-face {
+  font-family: satoshi-medium;
+  src: url(../fonts/satoshi/Satoshi-Medium.otf);
+}
+
+@font-face {
+  font-family: satoshi-bold;
+  src: url(../fonts/satoshi/Satoshi-Bold.otf);
+}
+
+@font-face {
+  font-family: clash-display-medium;
+  src: url(../fonts/clash-display/ClashDisplay-Medium.otf);
+}
+
+body {
+  background-color: var(--background);
+  margin: 20px;
+}
+
+.button_back {
+  display: flex;
+  align-items: center;
+}
+
+.button_back a {
+  font-family: clash-display-medium;
+  font-size: var(--text_1);
+  color: var(--brown);
+  text-decoration: none;
+}
+
+/* Usercard */
+
+.title_back {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.container_usercard {
+  border: 2px solid var(--brown);
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+}
+
+.usercard img {
+  height: 150px;
+  border-radius: 10%;
+  border: 2px solid var(--brown);
+  margin-top: 20px;
+}
+
+.change_picture {
+  align-content: center;
+  font-family: clash-display-medium;
+  font-size: var(--text_2);
+  color: var(--brown);
+  margin-top: 10px;
+}
+
+.title {
+  font-family: clash-display-medium;
+  font-size: var(--text_4);
+  color: var(--brown);
+}
+
+.profile_detail {
+  margin-top: 20px;
+}
+
+.profile_detail,
+.change_pet {
+  font-family: clash-display-medium;
+  font-size: var(--text_4);
+  color: var(--brown);
+  margin-bottom: 20px;
+}
+
+.usercard {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.usercard_info {
+  color: var(--brown);
+}
+
+.usercard_fullname,
+.usercard_mail,
+.pet_drop {
+  font-family: satoshi-regular;
+  font-size: var(--text_3);
+}
+
+form * {
+  outline: none;
+  border: none;
+}
+
+.profile_flex {
+  display: flex;
+  gap: 20px;
+}
+
+.input {
+  /* display: block; */
+  border: 2px solid var(--brown);
+  height: 50px;
+  width: 380px;
+  background-color: var(--background);
+  border-radius: 10px;
+  padding: 0 10px;
+  margin-top: 10px;
+  margin-bottom: 30px;
+  font-size: var(--text_2);
+  font-family: satoshi-regular;
+}
+
+.button_save {
+  font-family: clash-display-medium;
+  font-size: var(--text_3);
+  color: var(--background);
+  border: 2px solid var(--background);
+  border-radius: 10px;
+  width: 300px;
+  height: 56px;
+  padding: 0 10px;
+  background-color: var(--brown);
+  margin-top: 36px;
+  cursor: pointer;
+}
+
+#pet_dropdown {
+  display: block;
+  border: 2px solid var(--brown);
+  height: 50px;
+  width: 380px;
+  background-color: var(--background);
+  border-radius: 10px;
+  padding: 0 10px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  font-size: var(--text_2);
+  font-family: satoshi-regular;
+}

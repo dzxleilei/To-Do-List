@@ -186,7 +186,7 @@ body {
   cursor: pointer;
 }
 
-.button_more {
+/* .button_more {
   font-family: clash-display-medium;
   font-size: var(--text_3);
   color: var(--brown);
@@ -196,7 +196,7 @@ body {
   height: 30px;
   background-color: var(--background);
   cursor: pointer;
-}
+} */
 
 .loading_text {
   font-family: satoshi-regular;
@@ -218,7 +218,7 @@ body {
 
 .container_undone {
   border: 2px solid var(--brown);
-  padding: 20px;
+  padding: 10px;
   border-radius: 10px;
   display: flex;
   flex-direction: row;
@@ -227,9 +227,19 @@ body {
   align-items: center;
 }
 
+.task_active_list {
+  overflow-y: scroll;
+  height: 300px;
+}
+
+.task_done {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
 .container_done {
   border: 2px solid var(--brown);
-  padding: 20px;
+  padding: 10px;
   border-radius: 10px;
   display: flex;
   flex-direction: row;

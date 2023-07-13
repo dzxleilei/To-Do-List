@@ -13,5 +13,6 @@ if (!$conn) {
 $user_id = $_SESSION['id'];
 $email = $_SESSION['email'];
 $username = $_SESSION['username'];
+$fullname = $_SESSION['fullname'];
 $profile_photo = $_SESSION['photo'];
 ?>

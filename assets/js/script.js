@@ -31,18 +31,21 @@ function uncheck_task(task_id) {
 }
 
 function delete_task(task_id) {
-  $.ajax({
-    url: "sv_task.php",
-    method: "POST",
-    data: {
-      id: task_id,
-      act: "deleteTask",
-    },
-    success: function (result) {
-      get_data();
-      completed_data();
-    },
-  });
+  var conf = confirm("Are you sure?");
+  if (conf) {
+    $.ajax({
+      url: "sv_task.php",
+      method: "POST",
+      data: {
+        id: task_id,
+        act: "deleteTask",
+      },
+      success: function (result) {
+        get_data();
+        completed_data();
+      },
+    });
+  }
 }
 
 function get_data() {
@@ -101,14 +104,9 @@ function edit_task(id) {
       $("#edit_task_date").val(data[5]);
       $("#edit_task_time").val(data[6]);
       $("#task_id").val(data[7]);
-      // id = $("#id").val(data[7]);
 
       $(".overlayUpdate").css("visibility", "visible");
       $(".overlayUpdate").css("opacity", 1);
-      // $("#button_edit_task").unbind("click");
-      // $("#button_edit_task").on("click", function () {
-      //   update_task();
-      // });
     },
   });
 }
@@ -132,6 +130,8 @@ function update_task() {
       alert("Data berhasil diubah!");
       get_data();
       completed_data();
+      $(".overlayUpdate").css("visibility", "hidden");
+      $(".overlayUpdate").css("opacity", 0);
     },
   });
 }
@@ -160,26 +160,26 @@ function save_task() {
       get_data();
       completed_data();
       window.location = "#";
+      $("#resetform")[0].reset();
     },
   });
 }
 
-function vw_result() {
-  var from_date = $("#from_date").val();
-  var to_date = $("#to_date").val();
-  var status = $("#status").val();
+function filter_task() {
+  var start_date = $("#start_date").val();
+  var end_date = $("#end_date").val();
+  var filter_status = $("#filter_status").val();
   $.ajax({
     url: "sv_task.php",
     method: "POST",
     data: {
-      from_date: from_date,
-      to_date: to_date,
-      status: status,
-      act: "view",
+      act: "filter",
+      start_date: start_date,
+      end_date: end_date,
+      filter_status: filter_status,
     },
     success: function (result) {
-      $("#tdl").css({ display: "none" });
-      $("#report_result").html(result);
+      $("#filter_result").html(result);
     },
   });
 }
