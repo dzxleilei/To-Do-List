@@ -186,7 +186,7 @@ function filter_task() {
 
 function edit_profile(id) {
   $.ajax({
-    url: "sv_task.php",
+    url: "sv_profile.php",
     method: "POST",
     data: {
       id: id,
@@ -203,7 +203,7 @@ function edit_profile(id) {
 
 function update_profile() {
   $.ajax({
-    url: "sv_task.php",
+    url: "sv_profile.php",
     method: "POST",
     data: {
       fullname: $("#fullname").val(),
