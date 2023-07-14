@@ -35,28 +35,40 @@ include "config/connection.php";
                 </b>
             </div>
             <div class="usercard_info">
-                <p class="profile_detail"><b>Profile Details</b>
+                <p class="profile_detail"><b>Hello,
+                        <?php echo $username; ?>! Let's Customize Your Account.
+                    </b>
                 <form class="usercard_edit" id="usercard_edit">
                     <input type="hidden" name="user_id" id="user_id">
                     <div class="profile_flex">
                         <div>
                             <p class="usercard_fullname">Fullname</p>
-                            <input class="input" type="text" value="<?php echo $fullname; ?>" id="fullname"
-                                name="fullname" required>
+                            <input class="input" type="text" id="fullname" name="fullname" placeholder="Add Fullname..."
+                                required>
                         </div>
                         <div>
                             <p class="usercard_mail">Email</p>
-                            <input class="input" type="text" value="<?php echo $email; ?>" id="email" name="email"
+                            <input class="input" type="text" id="email" name="email" placeholder="Add Email..."
                                 required>
                             </p>
                         </div>
                         <!-- <p class="password">Password</p>
                     <input class="input" type="password" placeholder="Type Your Password..." id="password"
                         name="password" required><br /> -->
-                        <input class="button_save" type="submit" value="Save changes" name="submit" />
+                        <input class="button_save" type="button" value="Save changes" name="submit"
+                            onclick="update_profile()" />
+                    </div>
+                    <div>
+                        <p class="usercard_old_pass">Old Password</p>
+                        <input class="input" type="text" id="oldpass" name="oldpass" placeholder="Type Old Password...">
+                    </div>
+                    <div>
+                        <p class="usercard_new_pass">New Password</p>
+                        <input class="input" type="text" id="newpass" name="newpass" placeholder="Type New Password...">
+                        </p>
                     </div>
                 </form>
-                <p class="change_pet"><b>Change Pet</b>
+                <p class="change_pet"><b>Customize Pet</b>
                 <form class="pet_edit" id="pet_edit">
                     <p class="pet_drop">Choose Pet</p>
                     <select name="pet_dropdown" id="pet_dropdown">
@@ -68,3 +80,15 @@ include "config/connection.php";
             </div>
         </div>
     </div>
+    <!-- Script -->
+    <script src="./assets/js/jquery-3.7.0.js"></script>
+    <script src="./assets/js/script.js"></script>
+    <script src="https://kit.fontawesome.com/67a87c1aef.js" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function () {
+            edit_profile(<?php echo $user_id; ?>);
+        });
+    </script>
+</body>
+
+</html>

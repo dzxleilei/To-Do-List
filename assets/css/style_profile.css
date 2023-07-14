@@ -118,6 +118,8 @@ body {
 
 .usercard_fullname,
 .usercard_mail,
+.usercard_old_pass,
+.usercard_new_pass,
 .pet_drop {
   font-family: satoshi-regular;
   font-size: var(--text_3);

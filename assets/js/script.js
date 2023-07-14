@@ -183,3 +183,48 @@ function filter_task() {
     },
   });
 }
+
+function edit_profile(id) {
+  $.ajax({
+    url: "sv_task.php",
+    method: "POST",
+    data: {
+      id: id,
+      act: "editProfile",
+    },
+    success: function (result) {
+      var data = result.split("|");
+      $("#fullname").val(data[1]);
+      $("#email").val(data[2]);
+      $("#user_id").val(data[3]);
+    },
+  });
+}
+
+function update_profile() {
+  $.ajax({
+    url: "sv_task.php",
+    method: "POST",
+    data: {
+      fullname: $("#fullname").val(),
+      email: $("#email").val(),
+      oldpass: $("#oldpass").val(),
+      newpass: $("#newpass").val(),
+      id: $("#user_id").val(),
+      act: "updateProfile",
+    },
+    success: function (result) {
+      var data = result.split("|");
+
+      var actionType = data[1];
+      alert(data[2]);
+
+      if (actionType == "updateProfilePassword") {
+        window.location = "logout.php";
+      } else if (actionType == "wrongPassword") {
+        $("#newpass").val("");
+        $("#oldpass").val("");
+      }
+    },
+  });
+}
