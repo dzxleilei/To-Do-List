@@ -197,11 +197,21 @@ function edit_profile(id) {
       $("#fullname").val(data[1]);
       $("#email").val(data[2]);
       $("#user_id").val(data[3]);
+      $("#pet_dropdown").val(data[4]);
+      $("#pp").attr("src", "assets/images/" + data[5]);
     },
   });
 }
 
 function update_profile() {
+  var form_data = new FormData();
+
+  // Cek apakah ada file foto profil yang dipilih
+  if ($("#profile_image").prop("files").length > 0) {
+    var file_data = $("#profile_image").prop("files")[0];
+    form_data.append("profile_img", file_data);
+  }
+
   $.ajax({
     url: "sv_profile.php",
     method: "POST",
@@ -210,6 +220,8 @@ function update_profile() {
       email: $("#email").val(),
       oldpass: $("#oldpass").val(),
       newpass: $("#newpass").val(),
+      newpet: $("#pet_dropdown").val(),
+      newpp: $("#pp").val(),
       id: $("#user_id").val(),
       act: "updateProfile",
     },
@@ -225,6 +237,20 @@ function update_profile() {
         $("#newpass").val("");
         $("#oldpass").val("");
       }
+    },
+  });
+}
+
+function pet_phases() {
+  $.ajax({
+    url: "sv_task.php",
+    method: "POST",
+    data: {
+      act: "pet_phases",
+    },
+    success: function (result) {
+      $("#pet_phases").html(result);
+      pet_phases();
     },
   });
 }

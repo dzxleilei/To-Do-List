@@ -80,12 +80,20 @@ body {
   margin-top: 20px;
 }
 
-.change_picture {
+.change_picture_label {
   align-content: center;
   font-family: clash-display-medium;
   font-size: var(--text_2);
   color: var(--brown);
   margin-top: 10px;
+  cursor: pointer;
+}
+
+#change_picture {
+  position: absolute;
+  top: 0;
+  left: 0;
+  /* opacity: 0; */
 }
 
 .title {

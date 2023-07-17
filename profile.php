@@ -27,12 +27,23 @@ include "config/connection.php";
         </div>
         <div class="usercard">
             <div class="profile_picture">
-                <a href="profile.php"><img src="assets/images/<?php echo $profile_photo; ?>" alt="Avatar" /></a>
+                <div class="change_profile_picture" id="change_profile_picture">
+                    <div class="profile_picture" id="profile_picture">
+                        <img id="current_profile_img" src="assets/images/<?php echo $profile_photo; ?>" alt="Avatar" />
+                    </div>
+                    <!--Untuk edit foto profile-->
+                    <form id="upload_form" enctype="multipart/form-data">
+                        <br>
+                        <input type="file" name="profile_image" id="profile_image" accept="assets/picture/*">
+                    </form>
+                </div>
+                <!-- <img src="" alt="Avatar" id="pp" />
                 <b>
                     <center>
-                        <p class="change_picture">Change Picture</p>
+                        <input type="file" name="change_picture" id="change_picture" accept="image/*">
+                        <label for="change_picture" class="change_picture_label">Select Image</label>
                     </center>
-                </b>
+                </b> -->
             </div>
             <div class="usercard_info">
                 <p class="profile_detail"><b>Hello,
@@ -52,31 +63,29 @@ include "config/connection.php";
                                 required>
                             </p>
                         </div>
-                        <!-- <p class="password">Password</p>
-                    <input class="input" type="password" placeholder="Type Your Password..." id="password"
-                        name="password" required><br /> -->
                         <input class="button_save" type="button" value="Save changes" name="submit"
                             onclick="update_profile()" />
                     </div>
                     <div>
                         <p class="usercard_old_pass">Old Password</p>
-                        <input class="input" type="text" id="oldpass" name="oldpass" placeholder="Type Old Password...">
+                        <input class="input" type="password" id="oldpass" name="oldpass"
+                            placeholder="Type Old Password...">
                     </div>
                     <div>
                         <p class="usercard_new_pass">New Password</p>
-                        <input class="input" type="text" id="newpass" name="newpass" placeholder="Type New Password...">
+                        <input class="input" type="password" id="newpass" name="newpass"
+                            placeholder="Type New Password...">
                         </p>
                     </div>
-                </form>
-                <p class="change_pet"><b>Customize Pet</b>
-                <form class="pet_edit" id="pet_edit">
-                    <p class="pet_drop">Choose Pet</p>
-                    <select name="pet_dropdown" id="pet_dropdown">
-                        <option value="" selected disabled>Select Pet</option>
-                        <option value="1"></option>
-                        <option value="2"></option>
-                        <option value="3"></option>
-                    </select>
+                    <p class="change_pet"><b>Customize Pet</b>
+                    <form class="pet_edit" id="pet_edit">
+                        <p class="pet_drop">Choose Pet</p>
+                        <select name="pet_dropdown" id="pet_dropdown">
+                            <option value="" selected disabled>Select Pet</option>
+                            <option value="1">Rocky the Monster</option>
+                            <option value="2">Bella the Cat</option>
+                        </select>
+                    </form>
             </div>
         </div>
     </div>

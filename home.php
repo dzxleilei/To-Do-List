@@ -41,18 +41,9 @@ $user_id = $_SESSION['id'];
     <!-- Pet -->
     <div class="container_pet">
       <div class="pet">
-        <?php
-        $sql = "SELECT * FROM tb_users LEFT JOIN tb_pets ON tb_users.pet_id = tb_pets.id WHERE tb_users.id='$user_id'";
-        $query = mysqli_query($conn, $sql);
-        while ($petResult = mysqli_fetch_array($query)) {
-          ?>
-          <img class="pet_display_img" src="./assets/images/<?php echo $petResult['photo'] ?>" />
-          <div class="pet_info">
-            <p class="pet_name"><b>
-                <?php echo $petResult['name']; ?>
-              </b></p>
-          </div>
-        <?php } ?>
+        <div class="pet_content" id="pet_phases">
+          <p class="loading_text">loading . . . . . . . . . </p>
+        </div>
         <div class="pet_progress" id="completed_count">
           <p class="loading_text">loading . . . . . . . . . </p>
         </div>
@@ -103,6 +94,7 @@ $user_id = $_SESSION['id'];
       get_data();
       completed_data();
       completed_count();
+      pet_phases();
     });
   </script>
 </body>
