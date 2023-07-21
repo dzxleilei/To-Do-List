@@ -1,6 +1,7 @@
 <?php
 include "config/security.php";
 include "config/connection.php";
+
 ?>
 
 <!DOCTYPE html>
@@ -34,16 +35,9 @@ include "config/connection.php";
                     <!--Untuk edit foto profile-->
                     <form id="upload_form" enctype="multipart/form-data">
                         <br>
-                        <input type="file" name="profile_image" id="profile_image" accept="assets/picture/*">
+                        <input type="file" name="profile_image" id="profile_image" accept="assets/images/*">
                     </form>
                 </div>
-                <!-- <img src="" alt="Avatar" id="pp" />
-                <b>
-                    <center>
-                        <input type="file" name="change_picture" id="change_picture" accept="image/*">
-                        <label for="change_picture" class="change_picture_label">Select Image</label>
-                    </center>
-                </b> -->
             </div>
             <div class="usercard_info">
                 <p class="profile_detail"><b>Hello,

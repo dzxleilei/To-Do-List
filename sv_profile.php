@@ -30,9 +30,43 @@ if ($act == "editProfile") {
     $email = $result['email'];
     $pet = $result['pet_id'];
     $pp = $result['photo'];
+    
     echo "|" . $fullname . "|" . $email . "|" . $user_id . "|" . $pet . "|" . $pp . "|";
 
 } else if ($act == "updateProfile") {
+    $user_id = $_REQUEST['id'];
+    $profile_img = ''; // inisialisasi variable dengan nilai default kosong
+
+    if (isset($_FILES['photo']) && $_FILES['photo']['size'] > 0) {
+        // user mengunggah file baru
+        $file = $_FILES['photo'];
+        $file_name = md5($file['name']) . '_' . date('y-m-d') . '.' . pathinfo($file['name'], PATHINFO_EXTENSION);
+        $file_tmp = $file['tmp_name'];
+
+        //folder tujuan
+        $folder = 'assets/images/';
+
+        //pindahkan file ke dalam folder tujuan
+        if (move_uploaded_file($file_tmp, $folder . $file_name)) {
+            // File berhasil diunggah ke folder tujuan.
+            $profile_img = $file_name;
+        } else {
+            $response = array(
+                'action_type' => 'error',
+                'message' => 'Gagal mengunggah file.'
+            );
+            echo json_encode($response);
+
+            exit; // Keluar dari script karena gagal mengunggah file.
+        }
+    } else {
+        // User tidak mengunggah file baru, gunakan data yang ada di database
+        $sqlProfile = "SELECT photo FROM tb_users WHERE id='$user_id'";
+        $queryProfile = mysqli_query($conn, $sqlProfile);
+        $resultProfile = mysqli_fetch_array($queryProfile);
+        $profile_img = $resultProfile['photo'];
+    }
+
     $sqlcheckpass = "SELECT password, pet_id, xp from tb_users WHERE id = '$user_id'";
     $query = mysqli_query($conn, $sqlcheckpass);
     $result = mysqli_fetch_array($query);
@@ -55,54 +89,12 @@ if ($act == "editProfile") {
         }
     }
 
-    // if ($newpet != $pet) {
-    //     //get new pet phase id
-    //     $sql1 = "SELECT * FROM tb_pet_phases LEFT JOIN tb_users ON tb_pet_phases.id = tb_users.pet_phases WHERE xp >= min_xp AND xp <= max_xp AND tb_pet_phases.pet_id='$newpet'";
-    //     $query1 = mysqli_query($conn, $sql1);
-    //     $result1 = mysqli_fetch_array($query1);
-    //     $pet_phase_id = $result1['pet_phases_id'];
-
-    //     $addition_command .= ", pet_id='$newpet', pet_phases='$pet_phase_id'";
-    // }
-
     if ($exec) {
-        $profile_img = ''; // inisialisasi variable dengan nilai default kosong
+        $sql_update = "UPDATE tb_users SET fullname = '$fullname', email = '$email', pet_id='$newpet', photo='$profile_img' $addition_command WHERE id = '$user_id'";
+        $run_query_check = mysqli_query($conn, $sql_update) or die($sql_update);
 
-        if (isset($_FILES['profile_img']) && $_FILES['profile_img']['size'] > 0) {
-            // user mengunggah file baru
-            $file = $_FILES['profile_img'];
-            $file_name = md5($file['name']) . '_' . date('y-m-d') . '.' . pathinfo($file['name'], PATHINFO_EXTENSION);
-            $file_tmp = $file['tmp_name'];
-
-            //folder tujuan
-            $folder = './assets/images/';
-
-            //pindahkan file ke dalam folder tujuan
-            if (move_uploaded_file($file_tmp, $folder . $file_name)) {
-                // File berhasil diunggah ke folder tujuan.
-                $profile_img = $file_name;
-            } else {
-                $response = array(
-                    'action_type' => 'error',
-                    'message' => 'Gagal mengunggah file.'
-                );
-                echo json_encode($response);
-                exit; // Keluar dari script karena gagal mengunggah file.
-            }
-        } else {
-            // User tidak mengunggah file baru, gunakan data yang ada di database
-            $sqlProfile = "SELECT photo FROM tb_users WHERE id='$user_id'";
-            $queryProfile = mysqli_query($conn, $sqlProfile);
-            $resultProfile = mysqli_fetch_array($queryProfile);
-            $profile_img = $resultProfile['profile_img'];
-
-
-            $sql_update = "UPDATE tb_users SET fullname = '$fullname', email = '$email', photo = '$change_picture', pet_id='$newpet' $addition_command WHERE id = '$user_id'";
-            $run_query_check = mysqli_query($conn, $sql_update) or die($sql_update);
-
-            $message = "Data Berhasil diubah!";
-        }
+        $message = "Data Berhasil diubah!";
     }
-    echo "|" . $action_type . "|" . $message . "|";
 }
+echo "|" . $action_type . "|" . $message . "|";
 ?>

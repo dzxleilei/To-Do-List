@@ -13,6 +13,7 @@ $user_id = $_SESSION['id'];
   <title>Code Blaze</title>
 
   <link rel="stylesheet" href="assets/css/style_home.css" />
+  <link href="assets/select2/css/select2.min.css" rel="stylesheet" />
   <link rel="icon" type="image/x-icon" href="" />
 </head>
 
@@ -88,6 +89,7 @@ $user_id = $_SESSION['id'];
   <!-- Script -->
   <script src="./assets/js/jquery-3.7.0.js"></script>
   <script src="./assets/js/script.js"></script>
+  <script src="./assets/select2/js/select2.min.js"></script>
   <script src="https://kit.fontawesome.com/67a87c1aef.js" crossorigin="anonymous"></script>
   <script>
     $(document).ready(function () {
@@ -95,7 +97,11 @@ $user_id = $_SESSION['id'];
       completed_data();
       completed_count();
       pet_phases();
+      alarm_trigger();
     });
+    // setTimeout(function () {
+    //   location.reload();
+    // }, 6000);
   </script>
 </body>
 

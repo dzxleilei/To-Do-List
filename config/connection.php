@@ -11,8 +11,12 @@ if (!$conn) {
 }
 
 $user_id = $_SESSION['id'];
-$email = $_SESSION['email'];
-$username = $_SESSION['username'];
-$fullname = $_SESSION['fullname'];
-$profile_photo = $_SESSION['photo'];
+
+$sqluser = "select * from tb_users where id='$user_id'";
+$queryuser = mysqli_query($conn, $sqluser);
+$resultuser = mysqli_fetch_array($queryuser);
+$email = $resultuser['email'];
+$username = $resultuser['username'];
+$fullname = $resultuser['fullname'];
+$profile_photo = $resultuser['photo'];
 ?>

@@ -10,6 +10,7 @@ function check_task(task_id) {
       get_data();
       completed_data();
       completed_count();
+      pet_phases();
     },
   });
 }
@@ -26,6 +27,7 @@ function uncheck_task(task_id) {
       get_data();
       completed_data();
       completed_count();
+      pet_phases();
     },
   });
 }
@@ -151,8 +153,11 @@ function save_task() {
       task_desc: $("#task_desc").val(),
       category_id: $("#category_id").val(),
       priority_id: $("#priority_id").val(),
+      reminder_number: $("#reminder_number").val(),
+      reminder_unit: $("#reminder_unit").val(),
       task_date: $("#task_date").val(),
       task_time: $("#task_time").val(),
+      collaborators: $("#collaborators").val(),
       act: "saveTask",
     },
     success: function () {
@@ -161,6 +166,57 @@ function save_task() {
       completed_data();
       window.location = "#";
       $("#resetform")[0].reset();
+    },
+  });
+}
+
+function alarm_trigger() {
+  $.ajax({
+    url: "sv_task.php",
+    method: "POST",
+    data: {
+      act: "alarmTrigger",
+    },
+    success: function (response) {
+      // $row is passed from the server-side response
+      var $row = response.row;
+
+      if ($row > 0) {
+        // Mengecek apakah fitur Autoplay didukung oleh peramban
+        function isAutoplaySupported() {
+          // Periksa apakah peramban mendukung fitur Autoplay
+          return "autoplay" in document.createElement("audio");
+        }
+
+        // Memainkan ringtone
+        function playRingtone() {
+          var ringtone = new Audio("assets/sounds/alarm.mp3");
+          ringtone.play();
+        }
+
+        // Fungsi untuk memulai pemutaran ringtone setelah interaksi pengguna
+        function startAutoplay() {
+          if (isAutoplaySupported()) {
+            playRingtone();
+          } else {
+            // Jika Autoplay tidak didukung, tampilkan pesan untuk mengingatkan pengguna
+            alert(
+              "Reminder: Please enable autoplay for this site to hear the ringtone."
+            );
+          }
+        }
+
+        // Menambahkan event listener untuk deteksi interaksi pengguna
+        window.addEventListener("load", function () {
+          startAutoplay();
+        });
+
+        // Memulai pemutaran otomatis saat halaman dimuat
+        startAutoplay();
+      }
+    },
+    error: function (xhr, status, error) {
+      console.log("AJAX Error: " + error);
     },
   });
 }
@@ -198,7 +254,6 @@ function edit_profile(id) {
       $("#email").val(data[2]);
       $("#user_id").val(data[3]);
       $("#pet_dropdown").val(data[4]);
-      $("#pp").attr("src", "assets/images/" + data[5]);
     },
   });
 }
@@ -209,34 +264,43 @@ function update_profile() {
   // Cek apakah ada file foto profil yang dipilih
   if ($("#profile_image").prop("files").length > 0) {
     var file_data = $("#profile_image").prop("files")[0];
-    form_data.append("profile_img", file_data);
+    form_data.append("photo", file_data);
   }
+
+  form_data.append("fullname", $("#fullname").val());
+  form_data.append("email", $("#email").val());
+  form_data.append("oldpass", $("#oldpass").val());
+  form_data.append("newpass", $("#newpass").val());
+  form_data.append("newpet", $("#pet_dropdown").val());
+  form_data.append("id", $("#user_id").val());
+  form_data.append("act", "updateProfile");
 
   $.ajax({
     url: "sv_profile.php",
     method: "POST",
-    data: {
-      fullname: $("#fullname").val(),
-      email: $("#email").val(),
-      oldpass: $("#oldpass").val(),
-      newpass: $("#newpass").val(),
-      newpet: $("#pet_dropdown").val(),
-      newpp: $("#pp").val(),
-      id: $("#user_id").val(),
-      act: "updateProfile",
-    },
+    contentType: false,
+    processData: false,
+    data: form_data,
     success: function (result) {
+      // try {
       var data = result.split("|");
-
       var actionType = data[1];
-      alert(data[2]);
+      var message = data[2];
+      alert(message);
+      window.location = "profile.php";
 
       if (actionType == "updateProfilePassword") {
         window.location = "logout.php";
       } else if (actionType == "wrongPassword") {
-        $("#newpass").val("");
-        $("#oldpass").val("");
+        $("#new_password").val("");
+        $("#old_password").val("");
       }
+      // } catch (error) {
+      //   // console.error("Error parsing JSON:", error);
+      // }
+    },
+    error: function () {
+      $("#err").html("Terjadi kesalahan pada server.").fadeIn();
     },
   });
 }
@@ -250,7 +314,6 @@ function pet_phases() {
     },
     success: function (result) {
       $("#pet_phases").html(result);
-      pet_phases();
     },
   });
 }
