@@ -177,50 +177,12 @@ function alarm_trigger() {
     data: {
       act: "alarmTrigger",
     },
-    success: function (response) {
-      // $row is passed from the server-side response
-      var $row = response.row;
-
-      if ($row > 0) {
-        // Mengecek apakah fitur Autoplay didukung oleh peramban
-        function isAutoplaySupported() {
-          // Periksa apakah peramban mendukung fitur Autoplay
-          return "autoplay" in document.createElement("audio");
-        }
-
-        // Memainkan ringtone
-        function playRingtone() {
-          var ringtone = new Audio("assets/sounds/alarm.mp3");
-          ringtone.play();
-        }
-
-        // Fungsi untuk memulai pemutaran ringtone setelah interaksi pengguna
-        function startAutoplay() {
-          if (isAutoplaySupported()) {
-            playRingtone();
-          } else {
-            // Jika Autoplay tidak didukung, tampilkan pesan untuk mengingatkan pengguna
-            alert(
-              "Reminder: Please enable autoplay for this site to hear the ringtone."
-            );
-          }
-        }
-
-        // Menambahkan event listener untuk deteksi interaksi pengguna
-        window.addEventListener("load", function () {
-          startAutoplay();
-        });
-
-        // Memulai pemutaran otomatis saat halaman dimuat
-        startAutoplay();
-      }
-    },
-    error: function (xhr, status, error) {
-      console.log("AJAX Error: " + error);
+    success: function (result) {
+      // Check the actual response from the server
+      $("#alarmTrigger").html(result);
     },
   });
 }
-
 function filter_task() {
   var start_date = $("#start_date").val();
   var end_date = $("#end_date").val();

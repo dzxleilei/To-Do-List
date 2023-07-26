@@ -58,6 +58,10 @@ if ($act == "set_done") {
     $query = mysqli_query($conn, $sql);
 
 } else if ($act == "deleteTask") {
+    $sqlcollab = "DELETE FROM tb_collaborators WHERE task_id='$id'";
+    $querycollab = mysqli_query($conn, $sqlcollab);
+    $sqlreminder = "DELETE FROM tb_reminders WHERE task_id='$id'";
+    $queryreminder = mysqli_query($conn, $sqlreminder);
     $sql = "DELETE FROM tb_tasks WHERE id = '$id'";
     $query = mysqli_query($conn, $sql);
 
@@ -114,21 +118,17 @@ if ($act == "set_done") {
                 $collab_id = $resultCheckProfile['id'];
 
                 // Menambahkan data ke tabel kolaborator berdasarkan id
-
                 $sqlCollaborators = "INSERT INTO tb_collaborators (task_id, collab_id, added_by) VALUES ('$task_id', '$collab_id', '$user_id')";
                 mysqli_query($conn, $sqlCollaborators);
-                $sqlCollaborators_task = "INSERT INTO tb_tasks (task_name, task_date, task_desc, task_time, priority_id, category_id, user_id, status_id) 
-                VALUES ('$task_name','$task_date','$task_desc','$task_time','$priority_id','$category_id','$collab_id','1')";
-                mysqli_query($conn, $sqlCollaborators_task);
-                // akan menampilkan alert jika dia bukan yang membuat task atau pemberitahuan kepada collabolator
-                if ($collaborators_user_id != $user_id) {
-                    echo "<script>alert('You have been added as a collaborator to the task.');</script>";
-                }
+
+                //menampilkan task kesetiap kolabolator
+                $sqlShowTask = "SELECT task_id FROM tb_collaborators WHERE collab_id = '$collaborator[$i]'";
             }
         }
     }
 
 } else if ($act == "alarmTrigger") {
+    date_default_timezone_set('Asia/Jakarta');
     $currentDate = date('Y-m-d');
     $currentTime = date('H:i:00', time());
 
@@ -136,14 +136,24 @@ if ($act == "set_done") {
     $sql_check_reminder = "SELECT tb_reminders.*, tb_tasks.* FROM tb_reminders LEFT JOIN tb_tasks ON tb_reminders.task_id = tb_tasks.id WHERE reminder_date = '$currentDate' AND reminder_time = '$currentTime' AND tb_tasks.user_id = '$user_id' AND tb_tasks.status_id = 1";
     $query_check_reminder = mysqli_query($conn, $sql_check_reminder);
     $row = mysqli_num_rows($query_check_reminder);
-
-    // if (!$result_check_reminder) {
-    //     die('Query error: ' . mysqli_error($conn));
-    // }
-
-    // if ($row > 0) {
-
-    // }
+    $result = mysqli_fetch_array($query_check_reminder);
+    if ($row > 0) {
+        // There is a reminder that matches the current time
+        ?>
+                        <div class="reminder_title">
+                            <p>Reminder Set:
+                            <?php echo $result['task_name'];
+                            echo $result['task_date'];
+                            echo $result['task_time']; ?>
+                            </p>
+                            <audio autoplay>
+                                <source src="assets/sounds/alarm.mp3" type="audio/mpeg">
+                            </audio>
+                        </div>
+                        <?php
+    } else {
+        echo "Reminder not set";
+    }
 
 } else if ($act == "editTask") {
     $sql = "SELECT * FROM tb_tasks WHERE id = '$id'";
@@ -217,7 +227,7 @@ if ($act == "set_done") {
     }
 
 } else if ($act == "loading") {
-    $sql = "select t.*, c.name, c.photo from tb_tasks t left join tb_categories c on t.category_id = c.id where user_id='$user_id' and status_id=1 order by task_date asc";
+    $sql = "SELECT t.*, c.name, c.photo FROM tb_tasks t LEFT JOIN tb_categories c ON t.category_id = c.id LEFT JOIN tb_collaborators a ON t.id = a.task_id WHERE (user_id='$user_id' OR collab_id='$user_id') AND status_id=1 ORDER BY task_date ASC";
     $query = mysqli_query($conn, $sql);
     $num = mysqli_num_rows($query);
     if ($num == 0) {
@@ -333,7 +343,7 @@ if ($act == "set_done") {
     }
 
 } else if ($act == "completed") {
-    $sql = "select t.*, c.name, c.photo from tb_tasks t left join tb_categories c on t.category_id = c.id where user_id='$user_id' and status_id=2";
+    $sql = "SELECT t.*, c.name, c.photo FROM tb_tasks t LEFT JOIN tb_categories c ON t.category_id = c.id LEFT JOIN tb_collaborators a ON t.id = a.task_id WHERE (user_id='$user_id' OR collab_id='$user_id') AND status_id=2 ORDER BY task_date ASC";
     $query = mysqli_query($conn, $sql);
     $num = mysqli_num_rows($query);
     if ($num == 0) {

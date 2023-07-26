@@ -446,9 +446,6 @@ h3 {
 }
 
 .textField,
-#category_id,
-#priority_id,
-#reminder_unit,
 #edit_category_id,
 #edit_priority_id {
   display: block;
@@ -460,6 +457,15 @@ h3 {
   padding: 0 10px;
   margin-top: 10px;
   margin-bottom: 20px;
+  font-size: var(--text_2);
+  font-family: satoshi-regular;
+}
+
+.selectCustom {
+  display: block;
+  height: 50px;
+  width: 380px;
+  background-color: var(--background);
   font-size: var(--text_2);
   font-family: satoshi-regular;
 }

@@ -86,6 +86,9 @@ $user_id = $_SESSION['id'];
   <!-- Update Task -->
   <?php include "frm_task.php"; ?>
 
+  <!-- Reminder -->
+  <div id="alarmTrigger"></div>
+
   <!-- Script -->
   <script src="./assets/js/jquery-3.7.0.js"></script>
   <script src="./assets/js/script.js"></script>
@@ -99,9 +102,12 @@ $user_id = $_SESSION['id'];
       pet_phases();
       alarm_trigger();
     });
-    // setTimeout(function () {
-    //   location.reload();
-    // }, 6000);
+    $(document).ready(function () {
+      $('.js-example-basic-multiple').select2();
+    });
+    setTimeout(function () {
+      location.reload();
+    }, 60000);
   </script>
 </body>
 
